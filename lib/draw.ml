@@ -1,5 +1,6 @@
 open Graphics
 module B = Board
+module S = State
 
 (* Initialize graphics window *)
 let init_window (board : B.t) : unit =
@@ -8,6 +9,26 @@ let init_window (board : B.t) : unit =
   open_graph (Printf.sprintf " %dx%d" width height) ;
   Printf.printf "Window size (width: %d, height: %d)\n" width height ;
   Printf.printf "Press q to quit...\n%!"
+
+(* Draw the robot *)
+let draw_robot (x, y) =
+  set_color red ;
+  fill_circle
+    ((x * B.cell_size) + (B.cell_size / 2))
+    ((y * B.cell_size) + (B.cell_size / 2))
+    (B.cell_size / 2)
+
+(* Draw all boxes *)
+let draw_boxes boxes =
+  let open Graphics in
+  set_color blue ;
+  S.PosSet.iter
+    (fun (x, y) ->
+      fill_circle
+        ((x * B.cell_size) + (B.cell_size / 2))
+        ((y * B.cell_size) + (B.cell_size / 2))
+        (B.cell_size / 2) )
+    boxes
 
 (* Draw a single cell *)
 let draw_cell (x, y) ~(ty : B.cell) : unit =
@@ -21,7 +42,10 @@ let draw_board (board : B.t) : unit =
     board
 
 (* Render the full state *)
-let render board = draw_board board
+let render board state =
+  draw_board board ;
+  draw_robot (S.robot_pos state) ;
+  draw_boxes (S.boxes state)
 
 (* Read key press *)
 let read_key () = Graphics.read_key ()

@@ -1,10 +1,9 @@
-module B = Maze.Board
-module D = Maze.Draw
+module D = Maze__.Draw
 
 let () =
-  let board = B.("maze.txt" |> of_file) in
+  let board, state = "maze.txt" |> Maze.of_file in
   D.init_window board ;
-  D.render board ;
+  D.render board state ;
   let rec loop () =
     match D.read_key () with
     | 'q' ->

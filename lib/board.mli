@@ -4,7 +4,7 @@ type t
 
 val cell_size : int
 
-val of_file : string -> t
+val of_list : string list -> t
 
 val width : t -> int
 

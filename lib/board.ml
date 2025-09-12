@@ -12,15 +12,7 @@ let of_string (str : string) : cell array =
   |> Array.of_seq
 
 (** [of_file filename] returns a list of string read from [filename]. *)
-let of_file (filename : string) : t =
-  let ic = open_in filename in
-  let rec loop acc =
-    try
-      let s = input_line ic in
-      loop (s :: acc)
-    with End_of_file -> close_in ic ; List.rev acc
-  in
-  loop [] |> List.map of_string |> Array.of_list
+let of_list (lst : string list) : t = lst |> List.map of_string |> Array.of_list
 
 let iteri_cells f (board : t) : unit =
   Array.iteri (fun y row -> Array.iteri (fun x cell -> f x y cell) row) board
