@@ -5,10 +5,9 @@ module B = Board
 let init_window (board : B.t) : unit =
   let height = B.(height board * cell_size) in
   let width = B.(width board * cell_size) in
-  Printf.printf "Window size (width: %d, height: %d)\n" width height;
-  flush_all ();
   open_graph (Printf.sprintf " %dx%d" width height);
-  Printf.printf "Cursot at (%d, %d)\n" (current_x ()) (current_y ())
+  Printf.printf "Window size (width: %d, height: %d)\n" width height;
+  Printf.printf "Press q to quit...\n%!"
 ;;
 
 (* Draw a single cell *)

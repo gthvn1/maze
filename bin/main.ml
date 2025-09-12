@@ -9,8 +9,7 @@ let () =
     match D.read_key () with
     | 'q' -> D.close_window ()
     | c ->
-      Printf.printf "%c pressed\n" c;
-      flush_all ();
+      Printf.printf "%c pressed\n%!" c;
       loop ()
   in
   loop ()

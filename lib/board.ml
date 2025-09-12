@@ -4,7 +4,7 @@ type cell =
 
 type t = cell array array
 
-let cell_size : int = 20
+let cell_size : int = 10
 (* in pixels *)
 
 (** [of_string str] converts a string [str] into an array of cells. *)
