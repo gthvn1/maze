@@ -20,3 +20,6 @@ let iteri_cells f (board : t) : unit =
 let width (board : t) : int = Array.length board.(0)
 
 let height (board : t) : int = Array.length board
+
+let is_floor (board : t) ~(x : int) ~(y : int) : bool =
+  try board.(y).(x) = Floor with Invalid_argument _ -> false

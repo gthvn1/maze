@@ -15,22 +15,33 @@ let of_file (filename : string) : Board.t * State.t =
   let state = State.of_list lst in
   (board, state)
 
-let move_left ~(board : Board.t) ~(state : State.t) : State.t =
+let move_robot (board : Board.t) (state : State.t) (direction : Pos.t) : State.t
+    =
   let _ = board in
-  print_endline "TODO: move robot left" ;
-  state
+  let rx, ry = State.robot_pos state in
+  let dx, dy = direction in
+  let dest_x, dest_y = (rx + dx, ry + dy) in
+  Printf.printf "Trying from (%d,%d) to (%d,%d)\n" rx ry dest_x dest_y ;
+  (* Checking if we reach a floor *)
+  let new_state =
+    match Board.is_floor board ~x:dest_x ~y:dest_y with
+    | false ->
+        Printf.printf "Robot cannot move\n" ;
+        state
+    | true ->
+        Printf.printf "TODO: check the floor\n" ;
+        state
+  in
+  flush stdout ; new_state
+
+let move_left ~(board : Board.t) ~(state : State.t) : State.t =
+  move_robot board state (-1, 0)
 
 let move_down ~(board : Board.t) ~(state : State.t) : State.t =
-  let _ = board in
-  print_endline "TODO: move robot down" ;
-  state
+  move_robot board state (0, 1)
 
 let move_up ~(board : Board.t) ~(state : State.t) : State.t =
-  let _ = board in
-  print_endline "TODO: move robot up" ;
-  state
+  move_robot board state (0, -1)
 
 let move_right ~(board : Board.t) ~(state : State.t) : State.t =
-  let _ = board in
-  print_endline "TODO: move robot right" ;
-  state
+  move_robot board state (1, 0)

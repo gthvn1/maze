@@ -5,7 +5,7 @@ let () =
   let board, state = "maze.txt" |> G.of_file in
   D.init_window board ;
   let rec loop s =
-    D.render board state ;
+    D.render board s ;
     match D.read_key () with
     | 'h' ->
         G.move_left ~board ~state:s |> loop
