@@ -1,7 +1,8 @@
-module D = Maze__.Draw
+module D = Maze.Draw
+module G = Maze.Game
 
 let () =
-  let board, state = "maze.txt" |> Maze.of_file in
+  let board, state = "maze.txt" |> G.of_file in
   D.init_window board ;
   D.render board state ;
   let rec loop () =
