@@ -7,6 +7,7 @@ let init_window (board : B.t) : unit =
   let height = B.(height board * cell_size) in
   let width = B.(width board * cell_size) in
   open_graph (Printf.sprintf " %dx%d" width height) ;
+  auto_synchronize false ;
   Printf.printf "Window size (width: %d, height: %d)\n" width height ;
   Printf.printf "Press q to quit...\n%!"
 
@@ -42,9 +43,11 @@ let draw_board (board : B.t) : unit =
 
 (* Render the full state *)
 let render board state =
+  clear_graph () ;
   draw_board board ;
   draw_robot (S.robot_pos state) ;
-  draw_boxes (S.boxes state)
+  draw_boxes (S.boxes state) ;
+  synchronize ()
 
 (* Read key press *)
 let read_key () = Graphics.read_key ()
