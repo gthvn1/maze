@@ -14,3 +14,23 @@ let of_file (filename : string) : Board.t * State.t =
   let board = Board.of_list lst in
   let state = State.of_list lst in
   (board, state)
+
+let move_left ~(board : Board.t) ~(state : State.t) : State.t =
+  let _ = board in
+  print_endline "TODO: move robot left" ;
+  state
+
+let move_down ~(board : Board.t) ~(state : State.t) : State.t =
+  let _ = board in
+  print_endline "TODO: move robot down" ;
+  state
+
+let move_up ~(board : Board.t) ~(state : State.t) : State.t =
+  let _ = board in
+  print_endline "TODO: move robot up" ;
+  state
+
+let move_right ~(board : Board.t) ~(state : State.t) : State.t =
+  let _ = board in
+  print_endline "TODO: move robot right" ;
+  state
