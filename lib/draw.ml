@@ -20,7 +20,6 @@ let draw_robot (x, y) =
 
 (* Draw all boxes *)
 let draw_boxes boxes =
-  let open Graphics in
   set_color blue ;
   S.PosSet.iter
     (fun (x, y) ->
