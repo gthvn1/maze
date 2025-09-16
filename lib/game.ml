@@ -15,7 +15,7 @@ let of_file (filename : string) : Board.t * State.t =
   let state = State.of_list lst in
   (board, state)
 
-let try_push_box (board : Board.t) (state : State.t) ~(src : Pos.t)
+let rec try_push_box (board : Board.t) (state : State.t) ~(src : Pos.t)
     ~(dir : Pos.t) : State.t option =
   let x, y = src in
   let dx, dy = dir in
@@ -27,10 +27,13 @@ let try_push_box (board : Board.t) (state : State.t) ~(src : Pos.t)
       None
   | true ->
       (* Check if there is a box *)
-      if State.is_box_at ~pos:(dst_x, dst_y) state then (
-        Printf.printf "TODO: Another box blocks the path\n" ;
-        flush stdout ;
-        None )
+      if State.is_box_at ~pos:(dst_x, dst_y) state then
+        (* There is a box, try to push the next one if any *)
+        match try_push_box board state ~src:(dst_x, dst_y) ~dir with
+        | None ->
+            None
+        | Some new_state ->
+            Some (State.move_box ~src ~dst:(dst_x, dst_y) new_state)
       else
         (* there is no box so just move this one *)
         Some (State.move_box ~src ~dst:(dst_x, dst_y) state)
