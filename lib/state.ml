@@ -1,14 +1,15 @@
 type t = {robot: Pos.t; boxes: PosSet.t}
 
-let new_state ?robot ?boxes (s : t) : t =
-  { robot= Option.value robot ~default:s.robot
-  ; boxes= Option.value boxes ~default:s.boxes }
+let move_robot (s : t) ~(pos : Pos.t) : t = {s with robot= pos}
 
 let is_box_at (s : t) ~(pos : Pos.t) : bool = PosSet.mem pos s.boxes
 
 let robot_pos (s : t) : Pos.t = s.robot
 
 let iter_boxes (s : t) ~(f : Pos.t -> unit) : unit = PosSet.iter f s.boxes
+
+let move_box (s : t) ~(src : Pos.t) ~(dst : Pos.t) : t =
+  {s with boxes= PosSet.add dst (PosSet.remove src s.boxes)}
 
 let of_string (str : string) (row : int) : Pos.t option * PosSet.t =
   let robot = ref None in
