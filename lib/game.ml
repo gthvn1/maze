@@ -24,12 +24,12 @@ let move_robot (board : Board.t) (state : State.t) (direction : Pos.t) : State.t
   (* Checking if we reach a floor *)
   match Board.is_floor board ~x:dest_x ~y:dest_y with
   | false ->
-      Printf.printf "Robot cannot move\n" ;
+      Printf.printf "Robot blocked by a wall\n" ;
       flush stdout ;
       state
   | true ->
-      if State.is_box_at state ~x:dest_x ~y:dest_y then (
-        Printf.printf "TODO: there is a box in the path\n" ;
+      if State.is_box_at state ~pos:(dest_x, dest_y) then (
+        Printf.printf "TODO: move boxes\n" ;
         flush stdout ;
         state )
       else State.new_state ~robot:(dest_x, dest_y) state

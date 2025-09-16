@@ -20,15 +20,15 @@ let draw_robot (x, y) =
     (B.cell_size / 2)
 
 (* Draw all boxes *)
-let draw_boxes boxes =
+let draw_boxes (state : State.t) =
   set_color blue ;
-  PosSet.iter
-    (fun (x, y) ->
+  S.iter_boxes
+    ~f:(fun (x, y) ->
       fill_circle
         ((x * B.cell_size) + (B.cell_size / 2))
         ((y * B.cell_size) + (B.cell_size / 2))
         (B.cell_size / 2) )
-    boxes
+    state
 
 (* Draw a single cell *)
 let draw_cell (x, y) ~(ty : B.cell) : unit =
@@ -46,7 +46,7 @@ let render board state =
   clear_graph () ;
   draw_board board ;
   draw_robot (S.robot_pos state) ;
-  draw_boxes (S.boxes state) ;
+  draw_boxes state ;
   synchronize ()
 
 (* Read key press *)
