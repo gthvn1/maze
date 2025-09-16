@@ -1,21 +1,6 @@
-(* Expose the type of sets of positions *)
-module PosSet : sig
-  type elt = Pos.t
-
-  type t
-
-  val empty : t
-
-  val add : elt -> t -> t
-
-  val mem : elt -> t -> bool
-
-  val remove : elt -> t -> t
-
-  val iter : (elt -> unit) -> t -> unit
-end
-
 type t
+
+val new_state : ?robot:Pos.t -> ?boxes:PosSet.t -> t -> t
 
 val is_box_at : t -> x:int -> y:int -> bool
 

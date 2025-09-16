@@ -22,7 +22,7 @@ let draw_robot (x, y) =
 (* Draw all boxes *)
 let draw_boxes boxes =
   set_color blue ;
-  S.PosSet.iter
+  PosSet.iter
     (fun (x, y) ->
       fill_circle
         ((x * B.cell_size) + (B.cell_size / 2))

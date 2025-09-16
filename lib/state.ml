@@ -1,6 +1,8 @@
-module PosSet = Set.Make (Pos)
-
 type t = {robot: Pos.t; boxes: PosSet.t}
+
+let new_state ?robot ?boxes (s : t) : t =
+  { robot= Option.value robot ~default:s.robot
+  ; boxes= Option.value boxes ~default:s.boxes }
 
 let is_box_at (s : t) ~(x : int) ~(y : int) : bool = PosSet.mem (x, y) s.boxes
 
